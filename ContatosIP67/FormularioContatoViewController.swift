@@ -52,7 +52,6 @@ class FormularioContatoViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
         if contato != nil{
             self.nome.text = contato.nome
@@ -62,7 +61,14 @@ class FormularioContatoViewController: UIViewController {
             self.email.text = contato.email
             
             let botaoAlterar = UIBarButtonItem(title: "Confirmar", style: .plain, target: self, action: #selector(atualizaContato))
+            
             self.navigationItem.rightBarButtonItem = botaoAlterar
+            
+        }else{
+        
+            let botaoAdicionar = UIBarButtonItem(title: "Adicionar", style: .plain, target: self, action: #selector(criaContato))
+        
+            self.navigationItem.rightBarButtonItem = botaoAdicionar
         }
     }
 
