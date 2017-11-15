@@ -53,6 +53,9 @@ class FormularioContatoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let rightBarButton = UIBarButtonItem(title: nil, style: .plain, target: self, action: nil)
+        self.navigationItem.rightBarButtonItem = rightBarButton
+        
         if contato != nil{
             self.nome.text = contato.nome
             self.telefone.text = contato.telefone
@@ -60,21 +63,17 @@ class FormularioContatoViewController: UIViewController {
             self.site.text = contato.site
             self.email.text = contato.email
             
-            let botaoAlterar = UIBarButtonItem(title: "Confirmar", style: .plain, target: self, action: #selector(atualizaContato))
-            
-            self.navigationItem.rightBarButtonItem = botaoAlterar
+            rightBarButton.title = "Confirmar"
+            rightBarButton.action = #selector(atualizaContato)
             
         }else{
-        
-            let botaoAdicionar = UIBarButtonItem(title: "Adicionar", style: .plain, target: self, action: #selector(criaContato))
-        
-            self.navigationItem.rightBarButtonItem = botaoAdicionar
+            rightBarButton.title = "Adicionar"
+            rightBarButton.action = #selector(criaContato)
         }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 }
 
