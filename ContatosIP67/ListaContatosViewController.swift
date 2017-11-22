@@ -8,10 +8,11 @@
 
 import UIKit
 
-class ListaContatosViewController: UITableViewController {
+class ListaContatosViewController: UITableViewController, FormularioContatoViewControllerDelegate {
     
     var dao:ContatoDao
     static let cellIdentifier:String = "cell"
+    var linhaDestaque: IndexPath?
     
     required init?(coder aDecoder: NSCoder) {
         self.dao = ContatoDao.sharedInstance()
@@ -49,6 +50,7 @@ class ListaContatosViewController: UITableViewController {
     func exibeFormulario(_ contato:Contato){
         let storyboard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let formulario = storyboard.instantiateViewController(withIdentifier: "Form-Contato") as! FormularioContatoViewController
+        formulario.delegate = self
         formulario.contato = contato
         self.navigationController?.pushViewController(formulario, animated: true)
     }
@@ -57,8 +59,32 @@ class ListaContatosViewController: UITableViewController {
         return 1
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         self.tableView.reloadData()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        
+        if let linha = self.linhaDestaque{
+            self.tableView.selectRow(at: self.linhaDestaque!, animated: true, scrollPosition: .middle)
+            self.linhaDestaque = Optional.none
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "Segue"{
+            if let formulario = segue.destination as? FormularioContatoViewController{
+                formulario.delegate = self
+            }
+//        }
+    }
+    
+    func contatoAtualizado(_ contato: Contato) {
+        self.linhaDestaque = IndexPath(row: dao.buscaPosicaoDoContato(contato: contato), section: 0)
+    }
+    
+    func contatoAdicionado(_ contato: Contato) {
+        self.linhaDestaque = IndexPath(row: dao.buscaPosicaoDoContato(contato: contato), section: 0)
     }
 
 }

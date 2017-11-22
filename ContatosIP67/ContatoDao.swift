@@ -25,6 +25,10 @@ class ContatoDao: NSObject {
         return contatos[posicao]
     }
     
+    func buscaPosicaoDoContato(contato:Contato) -> Int{
+        return contatos.index(of: contato)!
+    }
+    
     func listaTodos() -> [Contato]{
         return contatos
     }

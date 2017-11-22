@@ -134,7 +134,7 @@
                     <navigationItem key="navigationItem" title="Contatos" id="kbX-nP-PWM">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Ly8-5c-sTe">
                             <connections>
-                                <segue destination="BYZ-38-t0r" kind="show" id="Lpv-60-Sjr"/>
+                                <segue destination="BYZ-38-t0r" kind="show" id="odV-fO-ZDc"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
