@@ -15,6 +15,7 @@
 		3609BD571FB2904300A1CC48 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3609BD551FB2904300A1CC48 /* LaunchScreen.storyboard */; };
 		3634C5BD1FB3DA1500CC949F /* Contato.m in Sources */ = {isa = PBXBuildFile; fileRef = 3634C5BC1FB3DA1500CC949F /* Contato.m */; };
 		36534C091FC4F504001B2511 /* FormularioContatoViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36534C081FC4F504001B2511 /* FormularioContatoViewControllerDelegate.swift */; };
+		36534C0B1FC64BD3001B2511 /* GerenciadorDeAcoes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36534C0A1FC64BD3001B2511 /* GerenciadorDeAcoes.swift */; };
 		36FC56D81FB910A6001B5DCA /* ContatoDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FC56D71FB910A6001B5DCA /* ContatoDao.swift */; };
 		36FC56DA1FB91B7C001B5DCA /* ListaContatosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FC56D91FB91B7C001B5DCA /* ListaContatosViewController.swift */; };
 /* End PBXBuildFile section */
@@ -32,6 +33,7 @@
 		3634C5BB1FB3DA1500CC949F /* Contato.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Contato.h; sourceTree = "<group>"; };
 		3634C5BC1FB3DA1500CC949F /* Contato.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Contato.m; sourceTree = "<group>"; };
 		36534C081FC4F504001B2511 /* FormularioContatoViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormularioContatoViewControllerDelegate.swift; sourceTree = "<group>"; };
+		36534C0A1FC64BD3001B2511 /* GerenciadorDeAcoes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GerenciadorDeAcoes.swift; sourceTree = "<group>"; };
 		36FC56D71FB910A6001B5DCA /* ContatoDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContatoDao.swift; sourceTree = "<group>"; };
 		36FC56D91FB91B7C001B5DCA /* ListaContatosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListaContatosViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -72,6 +74,7 @@
 				36FC56D71FB910A6001B5DCA /* ContatoDao.swift */,
 				3634C5BB1FB3DA1500CC949F /* Contato.h */,
 				36FC56D91FB91B7C001B5DCA /* ListaContatosViewController.swift */,
+				36534C0A1FC64BD3001B2511 /* GerenciadorDeAcoes.swift */,
 				3634C5BC1FB3DA1500CC949F /* Contato.m */,
 				3609BD4D1FB2904300A1CC48 /* Main.storyboard */,
 				3609BD531FB2904300A1CC48 /* Assets.xcassets */,
@@ -158,6 +161,7 @@
 			files = (
 				3634C5BD1FB3DA1500CC949F /* Contato.m in Sources */,
 				3609BD4C1FB2904300A1CC48 /* FormularioContatoViewController.swift in Sources */,
+				36534C0B1FC64BD3001B2511 /* GerenciadorDeAcoes.swift in Sources */,
 				36534C091FC4F504001B2511 /* FormularioContatoViewControllerDelegate.swift in Sources */,
 				36FC56D81FB910A6001B5DCA /* ContatoDao.swift in Sources */,
 				36FC56DA1FB91B7C001B5DCA /* ListaContatosViewController.swift in Sources */,

@@ -8,13 +8,14 @@
 
 import UIKit
 
-class FormularioContatoViewController: UIViewController {
+class FormularioContatoViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
     @IBOutlet var nome: UITextField!
     @IBOutlet var telefone: UITextField!
     @IBOutlet var endereco: UITextField!
     @IBOutlet var site: UITextField!
     @IBOutlet var email: UITextField!
+    @IBOutlet var foto: UIImageView!
 
     var dao:ContatoDao!
     var contato:Contato!
@@ -31,6 +32,7 @@ class FormularioContatoViewController: UIViewController {
         contato.telefone = self.telefone.text!
         contato.email = self.email.text!
         contato.site = self.site.text!
+        contato.foto = self.foto.image
     }
     
     @objc func criaContato(){
@@ -44,6 +46,27 @@ class FormularioContatoViewController: UIViewController {
         pegaDadosDoFormulario()
         self.delegate?.contatoAtualizado(contato)
         _ = self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func selecionarFoto(sender:AnyObject){
+        if UIImagePickerController.isSourceTypeAvailable(.camera){
+            
+        }else{
+            let imagePicker = UIImagePickerController()
+            imagePicker.sourceType = .photoLibrary
+            imagePicker.allowsEditing = true
+            imagePicker.delegate = self
+            
+            self.present(imagePicker, animated: true, completion: nil)
+            
+        }
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]){
+        if let imagemSelecionada = info[UIImagePickerControllerEditedImage] as? UIImage{
+            self.foto.image = imagemSelecionada
+        }
+        picker.dismiss(animated: true, completion: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -64,6 +87,10 @@ class FormularioContatoViewController: UIViewController {
             self.site.text = contato.site
             self.email.text = contato.email
             
+            if let foto = self.contato.foto{
+                self.foto.image = foto
+            }
+            
             rightBarButton.title = "Confirmar"
             rightBarButton.action = #selector(atualizaContato)
             
@@ -71,6 +98,9 @@ class FormularioContatoViewController: UIViewController {
             rightBarButton.title = "Adicionar"
             rightBarButton.action = #selector(criaContato)
         }
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(selecionarFoto(sender:)))
+        self.foto.addGestureRecognizer(tap)
     }
 
     override func didReceiveMemoryWarning() {

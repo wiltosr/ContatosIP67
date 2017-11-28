@@ -67,8 +67,19 @@ class ListaContatosViewController: UITableViewController, FormularioContatoViewC
         
         if let linha = self.linhaDestaque{
             self.tableView.selectRow(at: self.linhaDestaque!, animated: true, scrollPosition: .middle)
-            self.linhaDestaque = Optional.none
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)){
+                self.tableView.deselectRow(at: self.linhaDestaque!, animated: true)
+                self.linhaDestaque = Optional.none
+            }
         }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(exibirMaisAcoes(gesture:)))
+        self.tableView.addGestureRecognizer(longPress)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -86,5 +97,17 @@ class ListaContatosViewController: UITableViewController, FormularioContatoViewC
     func contatoAdicionado(_ contato: Contato) {
         self.linhaDestaque = IndexPath(row: dao.buscaPosicaoDoContato(contato: contato), section: 0)
     }
-
+    
+    @objc func exibirMaisAcoes(gesture: UIGestureRecognizer){
+        
+        if gesture.state == .began{
+            
+            let ponto = gesture.location(in: self.tableView)
+            if let indexPath:IndexPath? = self.tableView.indexPathForRow(at: ponto){
+                let contato = self.dao.buscaContatoNaPosicao(indexPath!.row)
+                let acoes = GerenciadorDeAcoes(do:contato)
+                acoes.exibirAcoes(em: self)
+            }
+        }
+    }
 }
