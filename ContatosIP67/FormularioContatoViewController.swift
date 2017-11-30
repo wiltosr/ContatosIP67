@@ -51,15 +51,30 @@ class FormularioContatoViewController: UIViewController, UINavigationControllerD
     @objc func selecionarFoto(sender:AnyObject){
         if UIImagePickerController.isSourceTypeAvailable(.camera){
             
+            let alert = UIAlertController(title: "Escolha a foto do contato", message: self.contato.nome, preferredStyle: .actionSheet)
+            
+            let cancelar = UIAlertAction(title: "Cancelar", style: .default, handler: nil)
+            let tirarFoto = UIAlertAction(title: "Tirar foto", style: .default){(action) in self.pegarImage(da: .camera)}
+            let escolherFoto = UIAlertAction(title: "Escolher da biblioteca", style: .default) {(action) in self.pegarImage(da: .photoLibrary)}
+            
+            alert.addAction(cancelar)
+            alert.addAction(tirarFoto)
+            alert.addAction(escolherFoto)
+            
+            self.present(alert, animated: true, completion: nil)
+        
         }else{
-            let imagePicker = UIImagePickerController()
-            imagePicker.sourceType = .photoLibrary
-            imagePicker.allowsEditing = true
-            imagePicker.delegate = self
-            
-            self.present(imagePicker, animated: true, completion: nil)
-            
+            pegarImage(da: .photoLibrary)
         }
+    }
+    
+    private func pegarImage(da sourceType: UIImagePickerControllerSourceType){
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = sourceType
+        imagePicker.allowsEditing = true
+        imagePicker.delegate = self
+        
+        self.present(imagePicker, animated: true, completion: nil)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]){
