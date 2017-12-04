@@ -17,5 +17,7 @@
 @property (strong) NSString *site;
 @property (strong) NSString *email;
 @property (strong) UIImage *foto;
+@property (strong) NSNumber *latitude;
+@property (strong) NSNumber *longitude;
 
 @end

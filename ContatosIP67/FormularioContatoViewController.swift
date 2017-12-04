@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class FormularioContatoViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
@@ -16,6 +17,9 @@ class FormularioContatoViewController: UIViewController, UINavigationControllerD
     @IBOutlet var site: UITextField!
     @IBOutlet var email: UITextField!
     @IBOutlet var foto: UIImageView!
+    @IBOutlet var latitude: UITextField!
+    @IBOutlet var longitude: UITextField!
+    @IBOutlet weak var loading: UIActivityIndicatorView!
 
     var dao:ContatoDao!
     var contato:Contato!
@@ -33,6 +37,15 @@ class FormularioContatoViewController: UIViewController, UINavigationControllerD
         contato.email = self.email.text!
         contato.site = self.site.text!
         contato.foto = self.foto.image
+        
+        if let latitude = Double(self.latitude.text!){
+            self.contato.latitude = latitude as NSNumber
+        }
+        
+        if let longitude = Double(self.longitude.text!){
+            self.contato.longitude = longitude as NSNumber
+        }
+        
     }
     
     @objc func criaContato(){
@@ -84,6 +97,31 @@ class FormularioContatoViewController: UIViewController, UINavigationControllerD
         picker.dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func buscarCoordenadas(sender: UIButton){
+        
+        self.loading.startAnimating()
+        sender.isEnabled = false
+        
+        let geocoder = CLGeocoder()
+        
+        geocoder.geocodeAddressString(self.endereco.text!){(resultado, error) in
+            
+            if error == nil && resultado?.count != 0 {
+                let placemark = resultado![0]
+                let coordenada = placemark.location!.coordinate
+                
+                self.latitude.text = coordenada.latitude.description
+                self.longitude.text = coordenada.longitude.description
+            }
+            
+            self.loading.stopAnimating()
+            sender.isEnabled = true
+        }
+    }
+    
+    
+
+    
     required init?(coder aDecoder: NSCoder) {
         self.dao = ContatoDao.sharedInstance()
         super.init(coder: aDecoder)
@@ -101,6 +139,8 @@ class FormularioContatoViewController: UIViewController, UINavigationControllerD
             self.endereco.text = contato.endereco
             self.site.text = contato.site
             self.email.text = contato.email
+            self.latitude.text = contato.latitude?.description
+            self.longitude.text = contato.longitude?.description
             
             if let foto = self.contato.foto{
                 self.foto.image = foto
